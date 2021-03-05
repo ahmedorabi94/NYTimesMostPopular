@@ -1,4 +1,4 @@
-package com.example.nytimes.ui.viewmodels
+package com.example.nytimes.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
@@ -8,6 +8,7 @@ import com.example.nytimes.data.api.Resource
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.model.Result
 import com.example.nytimes.data.repo.HomeFragmentRepo
+import com.example.nytimes.ui.viewmodels.HomeViewModel
 import com.nhaarman.mockitokotlin2.doReturn
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
