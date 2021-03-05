@@ -1,6 +1,9 @@
 # NY Times Most Popular
 A simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are clicked . 
 
+![Screenshot_2021-03-05-22-58-56-860_com example nytimes](https://user-images.githubusercontent.com/7644709/110174708-2fff5480-7e09-11eb-9234-6904a6f180d4.jpg)
+![Screenshot_2021-03-05-22-59-54-424_com example nytimes](https://user-images.githubusercontent.com/7644709/110174771-4a393280-7e09-11eb-8011-6ba2642819b1.jpg)
+
 
 
 ## Built With 🛠
