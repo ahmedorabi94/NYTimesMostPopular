@@ -59,12 +59,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/cairo_semibold"
+                    android:fontFamily="@font/roboto_bold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="0dp"
                     android:maxLines="2"
                     android:text="@{item.title}"
-                    android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/grey_font"
                     android:textSize="18sp" />
 
@@ -73,12 +72,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:fontFamily="@font/cairo_light"
+                    android:fontFamily="@font/roboto_light"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="0dp"
+                    android:layout_marginTop="3dp"
                     android:maxLines="2"
                     android:text="@{item.abstract}"
-                    android:textAppearance="?android:textAppearanceSmall"
                     android:textSize="14sp" />
 
 
@@ -103,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:fontFamily="@font/cairo_light"
+                        android:fontFamily="@font/roboto_light"
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="0dp"
                         android:maxLines="1"
