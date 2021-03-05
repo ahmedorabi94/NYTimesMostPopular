@@ -24,3 +24,5 @@ A simple app to hit the NY Times Most Popular Articles API and show a list of ar
   - MVVM Architecture (View - DataBinding - ViewModel - Model)
   - Repository pattern
   - Clean Architecture approach.
+![final-architecture](https://user-images.githubusercontent.com/7644709/94259993-b2691b80-ff2f-11ea-8bff-cc4ed3c8b6d9.png)
+
