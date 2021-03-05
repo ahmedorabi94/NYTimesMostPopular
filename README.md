@@ -17,8 +17,7 @@ A simple app to hit the NY Times Most Popular Articles API and show a list of ar
 - [Glide](https://github.com/bumptech/glide) - For Loading images from Urls.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - Testing
-  - [Unit Tests](https://en.wikipedia.org/wiki/Unit_testing) ([JUnit 5](https://junit.org/junit5/) via
-  - [android-junit5](https://github.com/mannodermaus/android-junit5))
+  - [Unit Tests](https://en.wikipedia.org/wiki/Unit_testing) ([JUnit 5](https://junit.org/junit5/) via [android-junit5](https://github.com/mannodermaus/android-junit5))
   - [UT Tests](https://en.wikipedia.org/wiki/Graphical_user_interface_testing) ([Espresso](https://developer.android.com/training/testing/espresso))
   - [Mockk](https://mockk.io/) - mocking framework
 - Architecture
