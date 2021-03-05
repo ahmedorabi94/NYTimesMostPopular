@@ -13,4 +13,9 @@ A simple app to hit the NY Times Most Popular Articles API and show a list of ar
 - [Dependency Injection](https://developer.android.com/training/dependency-injection)
   - [Dagger2](https://dagger.dev/) - Standard library to incorporate Dagger dependency injection into an Android application. **This is in a separate [dagger branch](https://github.com/wajahatkarim3/Imagine/tree/dagger-branch).**
 - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
+- [Glide](https://github.com/bumptech/glide) - For Loading images from Urls.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
+- Architecture
+  - MVVM Architecture (View - DataBinding - ViewModel - Model)
+  - Repository pattern
+  - Clean Architecture approach.
