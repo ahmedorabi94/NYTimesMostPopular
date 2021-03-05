@@ -61,7 +61,7 @@ class HomeFragment : Fragment(), Injectable {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(HomeViewModel::class.java)
 
-        viewModel.getArticles().observe(viewLifecycleOwner, {
+        viewModel.getArticles("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT").observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {
