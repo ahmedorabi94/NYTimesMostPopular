@@ -1,6 +1,6 @@
 package com.example.nytimes.di
 
-import com.example.nytimes.api.ApiService
+import com.example.nytimes.data.api.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

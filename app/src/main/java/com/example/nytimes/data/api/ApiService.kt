@@ -1,4 +1,4 @@
-package com.example.nytimes.api
+package com.example.nytimes.data.api
 
 import com.example.nytimes.data.model.ArticleResponse
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.example.nytimes.ui
+package com.example.nytimes.ui.adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

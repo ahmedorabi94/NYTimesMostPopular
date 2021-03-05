@@ -1,4 +1,4 @@
-package com.example.nytimes.viewmodels
+package com.example.nytimes.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

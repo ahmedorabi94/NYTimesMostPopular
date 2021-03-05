@@ -1,6 +1,6 @@
 package com.example.nytimes.data.repo
 
-import com.example.nytimes.api.ApiService
+import com.example.nytimes.data.api.ApiService
 import javax.inject.Inject
 
 class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) : ArticleDataSource {

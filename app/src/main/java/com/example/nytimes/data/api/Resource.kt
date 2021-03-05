@@ -1,4 +1,4 @@
-package com.example.nytimes.api
+package com.example.nytimes.data.api
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

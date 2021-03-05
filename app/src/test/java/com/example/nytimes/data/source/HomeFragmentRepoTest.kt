@@ -2,7 +2,7 @@ package com.example.nytimes.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.nytimes.TestCoroutineRule
-import com.example.nytimes.api.ApiService
+import com.example.nytimes.data.api.ApiService
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.model.Result
 import com.example.nytimes.data.repo.HomeFragmentRepo

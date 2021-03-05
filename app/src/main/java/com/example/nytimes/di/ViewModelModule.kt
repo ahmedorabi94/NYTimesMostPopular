@@ -2,8 +2,8 @@ package com.example.nytimes.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.nytimes.viewmodels.HomeViewModel
-import com.example.nytimes.viewmodels.NyTimesViewModelFactory
+import com.example.nytimes.ui.viewmodels.HomeViewModel
+import com.example.nytimes.ui.viewmodels.NyTimesViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
