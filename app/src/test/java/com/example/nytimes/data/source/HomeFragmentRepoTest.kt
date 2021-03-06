@@ -52,13 +52,11 @@ class HomeFragmentRepoTest {
 
     @Before
     fun setup() {
-        // MockKAnnotations.init(this)
         repository = HomeFragmentRepo(apiService)
     }
 
     @Test
-    fun `getArticles return data`() {
-
+    fun `getArticles verify getArticlesResponseAsync`() {
 
         runBlocking {
             repository.getArticlesResponse("123", 5, "5678")
@@ -70,10 +68,10 @@ class HomeFragmentRepoTest {
 
 
     @Test
-    fun `getArticles return data2`() {
+    fun `getArticles return empty list`() {
 
         val emptyList = arrayListOf<Result>()
-        val response = ArticleResponse("", 2, emptyList, "Success")
+        val response = ArticleResponse("", 0, emptyList, "Success")
 
         runBlocking {
 
@@ -87,7 +85,29 @@ class HomeFragmentRepoTest {
 
 
 
-            assertEquals(response2.num_results, response.num_results)
+            assertEquals(response2.results.size, 0)
+
+
+        }
+
+    }
+
+
+    @Test
+    fun `getArticles return data`() {
+
+        runBlocking {
+
+            doReturn(articleRes)
+                .`when`(apiService)
+                .getArticlesResponseAsync("123", 5, "5678")
+
+            val response2 = repository.getArticlesResponse("123", 5, "5678")
+
+            verify(apiService).getArticlesResponseAsync("123", 5, "5678")
+
+
+            assertEquals(response2.results.size, 2)
 
 
         }
