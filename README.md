@@ -2,6 +2,7 @@
 A simple app to hit the NY Times Most Popular Articles API and show a list of articles, that shows details when items on the list are clicked . 
 
 <div align="center">
+  <img src="https://user-images.githubusercontent.com/7644709/110202442-52c55380-7e71-11eb-9257-b2c08ffbf9f0.gif" width="400px" /> 
   <img src="https://user-images.githubusercontent.com/7644709/110174708-2fff5480-7e09-11eb-9234-6904a6f180d4.jpg" width="400px" /> 
   <img src="https://user-images.githubusercontent.com/7644709/110174771-4a393280-7e09-11eb-8011-6ba2642819b1.jpg" width="400px" />  
 </div>
