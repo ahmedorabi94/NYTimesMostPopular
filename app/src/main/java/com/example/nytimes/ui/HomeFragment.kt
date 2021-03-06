@@ -47,6 +47,7 @@ class HomeFragment : Fragment(), Injectable {
 
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,20 +56,13 @@ class HomeFragment : Fragment(), Injectable {
 
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
+        binding.lifecycleOwner = this
 
         (activity as AppCompatActivity).supportActionBar?.show()
 
         EspressoIdlingResource.increment()
-
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(HomeViewModel::class.java)
-
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         viewModel.getArticles("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
             .observe(viewLifecycleOwner, {
@@ -109,6 +103,8 @@ class HomeFragment : Fragment(), Injectable {
             })
 
 
+        return binding.root
     }
+
 
 }
