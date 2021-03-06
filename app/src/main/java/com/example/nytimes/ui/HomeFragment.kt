@@ -18,13 +18,13 @@ import com.example.nytimes.di.Injectable
 import com.example.nytimes.ui.adapter.ArticleAdapter
 import com.example.nytimes.ui.adapter.ArticleCallback
 import com.example.nytimes.ui.viewmodels.HomeViewModel
+import com.example.nytimes.util.EspressoIdlingResource
 import timber.log.Timber
 import javax.inject.Inject
 
 
 class HomeFragment : Fragment(), Injectable {
 
-    //   private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
 
@@ -38,7 +38,6 @@ class HomeFragment : Fragment(), Injectable {
 
             val bundle = Bundle()
             bundle.putParcelable("article", item)
-
 
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
@@ -97,15 +96,11 @@ class HomeFragment : Fragment(), Injectable {
 
                         }
                         Resource.Status.ERROR -> {
-                            //EspressoIdlingResource.decrement()
-
                             binding.progressbar.visibility = View.GONE
                             binding.recyclerViewMain.visibility = View.VISIBLE
                             Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
                         }
                         Resource.Status.LOADING -> {
-                            //    EspressoIdlingResource.decrement()
-
                             binding.progressbar.visibility = View.VISIBLE
                             binding.recyclerViewMain.visibility = View.GONE
                         }

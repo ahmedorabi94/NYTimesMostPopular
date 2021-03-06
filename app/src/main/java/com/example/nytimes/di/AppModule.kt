@@ -17,18 +17,12 @@ class AppModule {
 
     @Provides
     fun provideGson(): Gson {
-
-
         return GsonBuilder().create()
     }
 
 
     @Provides
     fun provideHttpClient(): OkHttpClient {
-
-//        File httpCacheDirectory = new File(application.getCacheDir(), "http-cache");
-//        int cacheSize = 10 * 1024 * 1024; // 10 MiB
-//        Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -43,8 +37,6 @@ class AppModule {
     @Provides
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            //    .addConverterFactory(MoshiConverterFactory.create())
-            //  .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .baseUrl("https://api.nytimes.com/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))

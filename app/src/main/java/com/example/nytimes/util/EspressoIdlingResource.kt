@@ -1,4 +1,4 @@
-package com.example.nytimes.ui
+package com.example.nytimes.util
 
 import androidx.test.espresso.idling.CountingIdlingResource
 

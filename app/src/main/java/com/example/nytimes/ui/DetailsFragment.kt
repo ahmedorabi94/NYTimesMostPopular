@@ -37,8 +37,6 @@ class DetailsFragment : Fragment(), Injectable {
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_details, container, false)
 
-       // activity?.actionBar?.hide()
-
         updateUI(article)
 
 
@@ -47,7 +45,6 @@ class DetailsFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
