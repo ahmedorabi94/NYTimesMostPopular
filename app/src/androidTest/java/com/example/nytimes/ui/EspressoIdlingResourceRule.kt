@@ -1,6 +1,7 @@
 package com.example.nytimes.ui
 
 import androidx.test.espresso.IdlingRegistry
+import com.example.nytimes.util.EspressoIdlingResource
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
