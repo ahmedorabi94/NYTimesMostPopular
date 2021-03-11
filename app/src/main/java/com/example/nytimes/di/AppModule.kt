@@ -1,6 +1,7 @@
 package com.example.nytimes.di
 
 import com.example.nytimes.data.api.ApiService
+import com.example.nytimes.data.api.NetworkResponseAdapterFactory
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -39,6 +40,7 @@ class AppModule {
         return Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/")
             .client(client)
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }

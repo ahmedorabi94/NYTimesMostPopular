@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nytimes.R
@@ -64,43 +65,43 @@ class HomeFragment : Fragment(), Injectable {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(HomeViewModel::class.java)
 
-        viewModel.getArticles("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
-            .observe(viewLifecycleOwner, {
+        viewModel.getArticlesTest("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
 
 
-                it?.let { resource ->
+        viewModel.articleResponse.observe(viewLifecycleOwner, {
+            it?.let { resource ->
 
 
-                    when (resource.status) {
-                        Resource.Status.SUCCESS -> {
+                when (resource.status) {
+                    Resource.Status.SUCCESS -> {
 
-                            Timber.e("SUCCESS")
-                            Timber.e("$resource.data")
+                        Timber.e("SUCCESS")
+                        Timber.e("$resource.data")
 
-                            binding.progressbar.visibility = View.GONE
-                            binding.recyclerViewMain.visibility = View.VISIBLE
+                        binding.progressbar.visibility = View.GONE
+                        binding.recyclerViewMain.visibility = View.VISIBLE
 
-                            val adapter = ArticleAdapter(articleCallback)
+                        val adapter = ArticleAdapter(articleCallback)
 
-                            resource.data?.let {
-                                EspressoIdlingResource.decrement()
-                                adapter.submitList(resource.data.results)
-                                binding.recyclerViewMain.adapter = adapter
-                            }
-
+                        resource.data?.let {
+                            EspressoIdlingResource.decrement()
+                            adapter.submitList(resource.data.results)
+                            binding.recyclerViewMain.adapter = adapter
                         }
-                        Resource.Status.ERROR -> {
-                            binding.progressbar.visibility = View.GONE
-                            binding.recyclerViewMain.visibility = View.VISIBLE
-                            Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
-                        }
-                        Resource.Status.LOADING -> {
-                            binding.progressbar.visibility = View.VISIBLE
-                            binding.recyclerViewMain.visibility = View.GONE
-                        }
+
+                    }
+                    Resource.Status.ERROR -> {
+                        binding.progressbar.visibility = View.GONE
+                        binding.recyclerViewMain.visibility = View.VISIBLE
+                        Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Resource.Status.LOADING -> {
+                        binding.progressbar.visibility = View.VISIBLE
+                        binding.recyclerViewMain.visibility = View.GONE
                     }
                 }
-            })
+            }
+        })
 
 
         return binding.root

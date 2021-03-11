@@ -24,6 +24,13 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class HomeViewModelTest {
 
+    // A rule is a way to run code before and after the execution of a test in JUnit.
+    //InstantTaskExecutorRule is a JUnit rule that configures LiveData to execute each task synchronously
+
+    //MainCoroutineScopeRule is a custom rule in this codebase that configures Dispatchers.Main to use
+    // a TestCoroutineDispatcher from kotlinx-coroutines-test. This allows tests to advance a virtual-clock for testing,
+    // and allows code to use Dispatchers.Main in unit tests.
+
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
@@ -106,7 +113,7 @@ class HomeViewModelTest {
     fun givenResponseError_whenFetch_shouldReturnError() {
 
         testCoroutineRule.runBlockingTest {
-            val errorMessage = "Error Occurred!"
+            val errorMessage = "ErrorApi Occurred!"
             doThrow(RuntimeException(errorMessage))
                 .`when`(repository)
                 .getArticlesResponse("123", 5, "5678")
