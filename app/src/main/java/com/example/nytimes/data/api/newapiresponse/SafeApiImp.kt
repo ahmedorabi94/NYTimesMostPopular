@@ -47,17 +47,6 @@ private fun convertErrorBody(throwable: HttpException): ErrorResponse? {
         null
     }
 
-//
-//    return try {
-//        throwable.response()?.errorBody()?.let {
-//            val gson = Gson()
-//            val jsonObject = JSONObject(it.string())
-//            Timber.e(it.string())
-//            gson.fromJson(jsonObject.toString(), ErrorResponse::class.java)
-//        }
-//    } catch (exception: Exception) {
-//        null
-//    }
 }
 
 
