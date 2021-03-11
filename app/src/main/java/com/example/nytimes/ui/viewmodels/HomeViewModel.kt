@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nytimes.data.api.NetworkResponse
 import com.example.nytimes.data.api.Resource
+import com.example.nytimes.data.api.newapiresponse.ResultWrapper
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.repo.HomeFragmentRepo
 import kotlinx.coroutines.launch
@@ -50,6 +51,47 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
                         Resource.error(data = null, message = "UnknownError  $response.error")
 
                 }
+            }
+
+        }
+
+
+    }
+
+    fun getArticles(section: String, period: Int, apiKey: String) {
+
+
+        viewModelScope.launch {
+
+            articleResponse.value = Resource.loading(data = null)
+
+
+            when (val response = repo.getArticlesResponseTwo(section, period, apiKey)) {
+                is ResultWrapper.Success -> {
+                    Timber.e("Success ${response.value}")
+                    articleResponse.value = Resource.success(response.value)
+                }
+                is ResultWrapper.Error -> {
+
+                    Timber.e("ApiError")
+
+                    val errorResponse = response.error
+
+                    if (errorResponse != null) {
+                        articleResponse.value =
+                            Resource.error(data = null, message = errorResponse.message)
+                    } else {
+                        articleResponse.value =
+                            Resource.error(data = null, message = "Unknown Error")
+                    }
+                }
+                is ResultWrapper.NetworkError -> {
+                    //   Timber.e("NetworkError ${response.error}")
+                    articleResponse.value =
+                        Resource.error(data = null, message = "NetworkError .")
+
+                }
+
             }
 
         }

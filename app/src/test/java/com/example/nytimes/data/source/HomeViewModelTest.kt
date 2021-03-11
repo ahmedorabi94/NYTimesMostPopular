@@ -113,7 +113,7 @@ class HomeViewModelTest {
     fun givenResponseError_whenFetch_shouldReturnError() {
 
         testCoroutineRule.runBlockingTest {
-            val errorMessage = "ErrorApi Occurred!"
+            val errorMessage = "ErrorResponse Occurred!"
             doThrow(RuntimeException(errorMessage))
                 .`when`(repository)
                 .getArticlesResponse("123", 5, "5678")

@@ -1,5 +1,6 @@
 package com.example.nytimes.data.api
 
+import com.example.nytimes.data.api.newapiresponse.ResultWrapper
 import com.example.nytimes.data.model.ArticleResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,7 +27,14 @@ interface ApiService {
         @Path("section") allSections: String,
         @Path("period") period: Int,
         @Query("api-key") apiKey: String
-    ): NetworkResponse<ArticleResponse, ErrorApi>
+    ): NetworkResponse<ArticleResponse, ErrorResponse>
+
+    @GET("svc/mostpopular/v2/mostviewed/{section}/{period}.json")
+    suspend fun getArticlesResponseAsyncTwo(
+        @Path("section") allSections: String,
+        @Path("period") period: Int,
+        @Query("api-key") apiKey: String
+    ): ArticleResponse
 
 
 }
