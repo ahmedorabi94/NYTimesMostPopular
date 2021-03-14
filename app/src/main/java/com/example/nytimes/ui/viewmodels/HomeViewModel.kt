@@ -1,6 +1,9 @@
 package com.example.nytimes.ui.viewmodels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.nytimes.data.api.NetworkResponse
 import com.example.nytimes.data.api.Resource
 import com.example.nytimes.data.api.newapiresponse.ResultWrapper
@@ -71,10 +74,10 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
                     _articleResponse.value = Resource.success(response.value)
                 }
                 is ResultWrapper.Error -> {
-
-                    Timber.e("ApiError")
-
                     val errorResponse = response.error
+                    val code = response.code
+
+                    Timber.e("ApiError Code : $code  Message : ${errorResponse?.message}")
 
                     if (errorResponse != null) {
                         _articleResponse.value =
