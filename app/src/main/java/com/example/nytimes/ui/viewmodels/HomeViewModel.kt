@@ -1,9 +1,6 @@
 package com.example.nytimes.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.nytimes.data.api.NetworkResponse
 import com.example.nytimes.data.api.Resource
 import com.example.nytimes.data.api.newapiresponse.ResultWrapper
@@ -18,6 +15,7 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
 
     private val _articleResponse = MutableLiveData<Resource<ArticleResponse>>()
     val articleResponse: LiveData<Resource<ArticleResponse>> get() = _articleResponse
+
 
     fun getArticlesTest(section: String, period: Int, apiKey: String) {
 
@@ -87,7 +85,6 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
                     }
                 }
                 is ResultWrapper.NetworkError -> {
-                    //   Timber.e("NetworkError ${response.error}")
                     _articleResponse.value =
                         Resource.error(data = null, message = "NetworkError .")
 
