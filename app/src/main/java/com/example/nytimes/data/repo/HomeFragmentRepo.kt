@@ -6,6 +6,8 @@ import com.example.nytimes.data.api.newapiresponse.safeApiCall
 import com.example.nytimes.data.model.ArticleResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) {
@@ -17,13 +19,30 @@ class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) {
         apiService.getArticlesResponseAsync(section, period, apiKey)
 
 
-    suspend fun getArticlesResponseTwo(section: String, period: Int, apiKey: String) : ResultWrapper<ArticleResponse> {
+    suspend fun getArticlesResponseTwo(
+        section: String,
+        period: Int,
+        apiKey: String
+    ): ResultWrapper<ArticleResponse> {
 
-        return safeApiCall(dispatcher){
+        return safeApiCall(dispatcher) {
             apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
         }
     }
 
+
+    suspend fun getArticlesResponseFlow(
+        section: String,
+        period: Int,
+        apiKey: String
+    ): Flow<ResultWrapper<ArticleResponse>> {
+
+        return flow {
+            emit(safeApiCall(dispatcher) {
+                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
+            })
+        }
+    }
 
 
 }
