@@ -24,6 +24,10 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
     val articleResponse: LiveData<Resource<ArticleResponse>> get() = _articleResponse
 
 
+    init {
+        getArticlesFlow()
+    }
+
     fun getArticlesTest(section: String, period: Int, apiKey: String) {
 
 
@@ -104,9 +108,10 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
 
     }
 
-    fun getArticlesFlow(section: String, period: Int, apiKey: String) {
+
+    private fun getArticlesFlow() {
         viewModelScope.launch {
-            repo.getArticlesResponseFlow(section, period, apiKey)
+            repo.getArticlesResponseFlow("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
                 .onStart {
                     Timber.e("Start")
                     _articleResponse.value = Resource.loading(data = null)
