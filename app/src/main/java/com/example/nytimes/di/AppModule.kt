@@ -1,7 +1,11 @@
 package com.example.nytimes.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.nytimes.data.api.ApiService
 import com.example.nytimes.data.api.NetworkResponseAdapterFactory
+import com.example.nytimes.data.db.AppDatabase
+import com.example.nytimes.data.db.ArticleDao
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -48,6 +52,22 @@ class AppModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDb(app: Application): AppDatabase {
+
+        return Room.databaseBuilder(app, AppDatabase::class.java, "articles.db")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideArticleDao(db: AppDatabase): ArticleDao {
+        return db.articleDao()
     }
 
 }

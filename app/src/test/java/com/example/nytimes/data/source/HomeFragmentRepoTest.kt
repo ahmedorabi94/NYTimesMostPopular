@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.nytimes.TestCoroutineRule
 import com.example.nytimes.data.api.ApiService
 import com.example.nytimes.data.model.ArticleResponse
-import com.example.nytimes.data.model.Result
+import com.example.nytimes.data.model.Article
 import com.example.nytimes.data.repo.HomeFragmentRepo
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
@@ -36,12 +36,12 @@ class HomeFragmentRepoTest {
 
     private lateinit var repository: HomeFragmentRepo
 
-    private val article1 = Result(
+    private val article1 = Article(
         "Abstract1", "", 0, emptyList(),
         "", "", "", "", "Title1", "", "", "", ""
     )
 
-    private val article2 = Result(
+    private val article2 = Article(
         "Abstract2", "", 0, emptyList(),
         "", "", "", "", "Title2", "", "", "", ""
     )
@@ -70,7 +70,7 @@ class HomeFragmentRepoTest {
     @Test
     fun `getArticles return empty list`() {
 
-        val emptyList = arrayListOf<Result>()
+        val emptyList = arrayListOf<Article>()
         val response = ArticleResponse("", 0, emptyList, "Success")
 
         runBlocking {

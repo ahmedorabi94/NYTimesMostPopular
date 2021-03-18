@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.nytimes.TestCoroutineRule
 import com.example.nytimes.data.api.Resource
 import com.example.nytimes.data.model.ArticleResponse
-import com.example.nytimes.data.model.Result
+import com.example.nytimes.data.model.Article
 import com.example.nytimes.data.repo.HomeFragmentRepo
 import com.example.nytimes.ui.viewmodels.HomeViewModel
 import junit.framework.Assert.assertNotNull
@@ -46,12 +46,12 @@ class HomeViewModelTest {
     private lateinit var viewModel: HomeViewModel
 
 
-    private val article1 = Result(
+    private val article1 = Article(
         "Abstract1", "", 0, emptyList(),
         "", "", "", "", "Title1", "", "", "", ""
     )
 
-    private val article2 = Result(
+    private val article2 = Article(
         "Abstract2", "", 0, emptyList(),
         "", "", "", "", "Title2", "", "", "", ""
     )

@@ -135,9 +135,11 @@ dependencies {
 
     //Room
     def room_version = "2.2.6"
-    implementation "androidx.room:room-runtime:$room_version"
+  //  implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.30"
 
     //  dagger 2
     kapt 'com.google.dagger:dagger-compiler:2.20'

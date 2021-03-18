@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nytimes.R
 import com.example.nytimes.data.api.Resource
-import com.example.nytimes.data.model.Result
+import com.example.nytimes.data.model.Article
 import com.example.nytimes.databinding.FragmentHomeBinding
 import com.example.nytimes.di.Injectable
 import com.example.nytimes.ui.adapter.ArticleAdapter
@@ -33,7 +33,7 @@ class HomeFragment : Fragment(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val articleCallback = object : ArticleCallback {
-        override fun onArticleClick(item: Result) {
+        override fun onArticleClick(item: Article) {
             Timber.e("$item")
 
             val bundle = Bundle()

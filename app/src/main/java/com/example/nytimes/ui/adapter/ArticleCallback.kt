@@ -1,8 +1,8 @@
 package com.example.nytimes.ui.adapter
 
-import com.example.nytimes.data.model.Result
+import com.example.nytimes.data.model.Article
 
 interface ArticleCallback {
 
-    fun onArticleClick(item: Result)
+    fun onArticleClick(item: Article)
 }

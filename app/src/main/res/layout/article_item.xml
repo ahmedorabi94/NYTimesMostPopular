@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.nytimes.data.model.Result" />
+            type="com.example.nytimes.data.model.Article" />
 
         <variable
             name="callback"

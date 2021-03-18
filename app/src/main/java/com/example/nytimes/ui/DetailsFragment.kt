@@ -9,14 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.nytimes.R
-import com.example.nytimes.data.model.Result
+import com.example.nytimes.data.model.Article
 import com.example.nytimes.databinding.FragmentDetailsBinding
 import com.example.nytimes.di.Injectable
 
 
 class DetailsFragment : Fragment(), Injectable {
 
-    private var article: Result? = null
+    private var article: Article? = null
     private lateinit var binding: FragmentDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ class DetailsFragment : Fragment(), Injectable {
     }
 
 
-    private fun updateUI(article: Result?) {
+    private fun updateUI(article: Article?) {
 
         article?.let { item ->
             binding.source.text = item.source
@@ -59,17 +59,21 @@ class DetailsFragment : Fragment(), Injectable {
             binding.dateTv.text = "Publish Date : ${item.published_date}"
 
 
-            if (item.media.isNotEmpty()) {
-                val meta = item.media[0]
-                binding.captionTv.text = meta.caption
-                binding.copyRightTv.text = "Copyright : ${meta.copyright}"
+            if (item.media != null) {
+                if (item.media!!.isNotEmpty()) {
 
-                if (meta.mediaMetadata.isNotEmpty()) {
-                    val metaData = meta.mediaMetadata[2]
-                    Glide.with(this).load(metaData.url).into(binding.imageView)
+                    val meta = item.media!![0]
+                    binding.captionTv.text = meta.caption
+                    binding.copyRightTv.text = "Copyright : ${meta.copyright}"
 
+                    if (meta.mediaMetadata.isNotEmpty()) {
+                        val metaData = meta.mediaMetadata[2]
+                        Glide.with(this).load(metaData.url).into(binding.imageView)
+
+                    }
                 }
             }
+
 
         }
     }
