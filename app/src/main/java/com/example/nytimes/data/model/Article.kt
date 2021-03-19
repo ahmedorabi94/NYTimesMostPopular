@@ -4,11 +4,14 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.nytimes.data.db.ArticleTypeConverter
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 @Entity(tableName = "article")
+@TypeConverters(ArticleTypeConverter::class)
 @Parcelize
 data class Article(
 
@@ -20,8 +23,9 @@ data class Article(
     @SerializedName("id")
     var artId: Long = 0,
 
-    @Ignore
+   // @Ignore
     var media: @RawValue List<Media>? = null,
+
     var published_date: String = "",
     var source: String = "",
     var title: String = "",
