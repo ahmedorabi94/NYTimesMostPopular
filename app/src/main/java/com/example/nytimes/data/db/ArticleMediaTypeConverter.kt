@@ -1,15 +1,14 @@
 package com.example.nytimes.data.db
 
 import androidx.room.TypeConverter
-import com.example.nytimes.data.model.Media
+import com.example.nytimes.data.model.MediaMetadata
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-
-class ArticleTypeConverter {
+class ArticleMediaTypeConverter {
 
     @TypeConverter
-    fun fromListToString(media: List<Media>?): String? {
+    fun fromListToString(media: List<MediaMetadata>?): String? {
 
         if (media == null) {
             return null
@@ -23,11 +22,9 @@ class ArticleTypeConverter {
 
 
     @TypeConverter
-    fun fromString(value: String): List<Media> {
+    fun fromString(value: String): List<MediaMetadata> {
         val listType = object : TypeToken<List<String>>() {}.type
         return Gson().fromJson(value, listType)
     }
 
-
 }
-
