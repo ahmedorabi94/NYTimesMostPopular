@@ -1,8 +1,8 @@
 package com.example.nytimes.data.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.nytimes.data.db.ArticleTypeConverter
@@ -15,15 +15,19 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class Article(
 
-    var abstract: String = "",
-    var byline: String = "",
     @PrimaryKey(autoGenerate = true)
     var articleId: Int = 0,
 
     @SerializedName("id")
     var artId: Long = 0,
 
-   // @Ignore
+    var byline: String = "",
+
+    @ColumnInfo(name = "summary")
+    @SerializedName("abstract")
+    var summary: String = "",
+
+    // @Ignore
     var media: @RawValue List<Media>? = null,
 
     var published_date: String = "",

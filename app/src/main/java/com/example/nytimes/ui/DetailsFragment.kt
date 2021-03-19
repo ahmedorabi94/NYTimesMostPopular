@@ -36,16 +36,12 @@ class DetailsFragment : Fragment(), Injectable {
 
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_details, container, false)
+        (activity as AppCompatActivity).supportActionBar?.hide()
 
         updateUI(article)
 
 
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
 
@@ -54,7 +50,7 @@ class DetailsFragment : Fragment(), Injectable {
         article?.let { item ->
             binding.source.text = item.source
             binding.title.text = item.title
-            binding.abstractTv.text = item.abstract
+            binding.abstractTv.text = item.summary
             binding.lineTv.text = item.byline
             binding.dateTv.text = "Publish Date : ${item.published_date}"
 

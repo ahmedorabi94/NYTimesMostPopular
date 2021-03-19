@@ -1,9 +1,6 @@
 package com.example.nytimes.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.nytimes.data.model.Article
 
 
@@ -14,6 +11,10 @@ interface ArticleDao {
     suspend fun insertArticles(articles: List<Article>)
 
     @Query("Select * from article")
-     fun getAllArticles(): List<Article>
+    fun getAllArticles(): List<Article>
+
+
+    @Query("Delete from article")
+    suspend fun deleteAllArticles()
 
 }

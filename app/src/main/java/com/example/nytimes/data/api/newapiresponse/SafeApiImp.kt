@@ -1,6 +1,8 @@
 package com.example.nytimes.data.api.newapiresponse
 
 import com.example.nytimes.data.api.ErrorResponse
+import com.example.nytimes.data.db.ArticleDao
+import com.example.nytimes.data.model.ArticleResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -9,14 +11,34 @@ import java.io.IOException
 
 
 suspend fun <T> safeApiCall(
+    articleDao: ArticleDao,
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
-): ResultWrapper<T> {
+): ResultWrapper<ArticleResponse> {
 
     return withContext(dispatcher) {
         try {
-            ResultWrapper.Success(apiCall.invoke())
+
+            val response = apiCall.invoke() as ArticleResponse
+
+            val dataDbSource = articleDao.getAllArticles()
+            Timber.e("$dataDbSource.size")
+
+            if (dataDbSource.isEmpty()) {
+                articleDao.insertArticles(response.results)
+            } else {
+                articleDao.deleteAllArticles()
+                articleDao.insertArticles(response.results)
+
+            }
+
+
+            val articleResponse = ArticleResponse("", 20, articleDao.getAllArticles(), "OK")
+
+            ResultWrapper.Success(articleResponse)
+
         } catch (throwable: Throwable) {
+            Timber.e("${throwable.message}   ${throwable.localizedMessage}")
             when (throwable) {
                 is IOException -> {
                     ResultWrapper.NetworkError

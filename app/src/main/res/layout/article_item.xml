@@ -79,7 +79,7 @@
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="0dp"
                     android:maxLines="2"
-                    android:text="@{item.abstract}"
+                    android:text="@{item.summary}"
                     android:textSize="14sp" />
 
 

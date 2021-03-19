@@ -3,6 +3,7 @@ package com.example.nytimes.data.repo
 import com.example.nytimes.data.api.ApiService
 import com.example.nytimes.data.api.newapiresponse.ResultWrapper
 import com.example.nytimes.data.api.newapiresponse.safeApiCall
+import com.example.nytimes.data.db.ArticleDao
 import com.example.nytimes.data.model.ArticleResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) {
+class HomeFragmentRepo @Inject constructor(
+    private val apiService: ApiService,
+    private val articleDao: ArticleDao
+) {
 
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
@@ -25,7 +29,7 @@ class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) {
         apiKey: String
     ): ResultWrapper<ArticleResponse> {
 
-        return safeApiCall(dispatcher) {
+        return safeApiCall(articleDao, dispatcher) {
             apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
         }
     }
@@ -37,10 +41,21 @@ class HomeFragmentRepo @Inject constructor(private val apiService: ApiService) {
         apiKey: String
     ): Flow<ResultWrapper<ArticleResponse>> {
 
+
         return flow {
-            emit(safeApiCall(dispatcher) {
+
+         //   val dataDbSource = articleDao.getAllArticles()
+
+          //  emit(ResultWrapper.Success(ArticleResponse("", 20, dataDbSource, "Ok")))
+
+            emit(safeApiCall(articleDao, dispatcher) {
                 apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
             })
+
+//            safeApiCall(articleDao, dispatcher) {
+//                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
+//            }
+
         }
     }
 

@@ -24,7 +24,7 @@ class ArticleTypeConverter {
 
     @TypeConverter
     fun fromString(value: String): List<Media> {
-        val listType = object : TypeToken<List<String>>() {}.type
+        val listType = object : TypeToken<List<Media>>() {}.type
         return Gson().fromJson(value, listType)
     }
 
