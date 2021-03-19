@@ -6,7 +6,6 @@ import androidx.room.TypeConverters
 import com.example.nytimes.data.model.Article
 
 @Database(entities = [Article::class], version = 1, exportSchema = false)
-//@TypeConverters(ArticleTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
 }

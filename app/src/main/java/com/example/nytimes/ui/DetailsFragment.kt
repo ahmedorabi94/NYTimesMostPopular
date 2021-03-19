@@ -66,11 +66,15 @@ class DetailsFragment : Fragment(), Injectable {
                     binding.captionTv.text = meta.caption
                     binding.copyRightTv.text = "Copyright : ${meta.copyright}"
 
-//                    if (meta.mediaMetadata.isNotEmpty()) {
-//                        val metaData = meta.mediaMetadata[2]
-//                        Glide.with(this).load(metaData.url).into(binding.imageView)
-//
-//                    }
+                    if (meta.mediaMetadata != null) {
+                        if (meta.mediaMetadata!!.isNotEmpty()) {
+                            val metaData = meta.mediaMetadata!![2]
+                            Glide.with(this).load(metaData.url).into(binding.imageView)
+
+                        }
+                    }
+
+
                 }
             }
 
