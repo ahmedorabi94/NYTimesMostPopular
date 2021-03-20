@@ -44,41 +44,11 @@ class HomeFragmentRepo @Inject constructor(
 
         return flow {
 
-//            val dataDbSource = articleDao.getAllArticles()
-//            val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
-//
-//            emit(ResultWrapper.Success(articleResponse))
-//
-//            //  emit(ResultWrapper.Success(ArticleResponse("", 20, dataDbSource, "Ok")))
-//
-//
-//            val apiResponse = safeApiCall(articleDao, dispatcher) {
-//                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
-//            }
-//
-//
-//            when (apiResponse) {
-//                is ResultWrapper.Success -> {
-//                    articleDao.insertArticles(apiResponse.value.results)
-//                }
-//                else -> {
-//                    emit(apiResponse)
-//
-//                    val dataDbSource = articleDao.getAllArticles()
-//                    val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
-//
-//                    emit(ResultWrapper.Success(articleResponse))
-//                }
-//            }
-
 
             emit(safeApiCall(articleDao, dispatcher) {
                 apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
             })
 
-//            safeApiCall(articleDao, dispatcher) {
-//                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
-//            }
 
         }
     }
