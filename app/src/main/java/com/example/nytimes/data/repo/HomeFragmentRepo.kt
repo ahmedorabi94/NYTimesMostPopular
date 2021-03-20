@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class HomeFragmentRepo @Inject constructor(
@@ -49,8 +50,6 @@ class HomeFragmentRepo @Inject constructor(
 
             emit(ResultWrapper.Success(articleResponse))
 
-            //  emit(ResultWrapper.Success(ArticleResponse("", 20, dataDbSource, "Ok")))
-
 
             val apiResponse = safeApiCall(articleDao, dispatcher) {
                 apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
@@ -59,28 +58,20 @@ class HomeFragmentRepo @Inject constructor(
 
             when (apiResponse) {
                 is ResultWrapper.Success -> {
+                    articleDao.deleteAllArticles()
                     articleDao.insertArticles(apiResponse.value.results)
                 }
                 else -> {
-                    emit(apiResponse)
+                    //    emit(apiResponse)
 
-                    val dataDbSource = articleDao.getAllArticles()
-                    val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
-
-                    emit(ResultWrapper.Success(articleResponse))
+                    //   emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
                 }
             }
 
+            emit(apiResponse)
 
-//            emit(safeApiCall(articleDao, dispatcher) {
-//                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
-//            })
 
-//            safeApiCall(articleDao, dispatcher) {
-//                apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
-//            }
-
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
 
