@@ -3,7 +3,6 @@ package com.example.nytimes.di
 import android.app.Application
 import androidx.room.Room
 import com.example.nytimes.data.api.ApiService
-import com.example.nytimes.data.api.NetworkResponseAdapterFactory
 import com.example.nytimes.data.db.AppDatabase
 import com.example.nytimes.data.db.ArticleDao
 import com.google.gson.Gson
@@ -44,7 +43,6 @@ class AppModule {
         return Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/")
             .client(client)
-            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }

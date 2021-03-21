@@ -31,106 +31,106 @@ class HomeViewModelTest {
     // a TestCoroutineDispatcher from kotlinx-coroutines-test. This allows tests to advance a virtual-clock for testing,
     // and allows code to use Dispatchers.Main in unit tests.
 
-    @get:Rule
-    val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
-
-    @Mock
-    private lateinit var apiUsersObserver: Observer<Resource<ArticleResponse>>
-
-    @Mock
-    private lateinit var repository: HomeFragmentRepo
-
-    private lateinit var viewModel: HomeViewModel
-
-
-    private val article1 = Article(
-        "Abstract1", "", 0, emptyList(),
-        "", "", "", "", "Title1", "", "", "", ""
-    )
-
-    private val article2 = Article(
-        "Abstract2", "", 0, emptyList(),
-        "", "", "", "", "Title2", "", "", "", ""
-    )
-
-    private val articles = listOf(article1, article2)
-
-    private val articleRes = ArticleResponse("", 2, articles, "Success")
-
-
-    @Before
-    fun setUp() {
-        viewModel = HomeViewModel(repository)
-
-    }
-
-
-    @Test
-    fun `getArticles verify getArticlesResponse`() {
-
-        runBlocking {
-            viewModel.getArticlesTest("123", 5, "5678")
-            verify(repository).getArticlesResponse("123", 5, "5678")
-
-            viewModel.articleResponse.observeForever(apiUsersObserver)
-            assertNotNull(viewModel.articleResponse.value)
-
-
-        }
-
-    }
-
-    @Test
-    fun givenResponseSuccess_whenFetch_shouldReturnSuccess() {
-
-
-        testCoroutineRule.runBlockingTest {
-            doReturn(articleRes)
-                .`when`(repository)
-                .getArticlesResponse("123", 5, "5678")
-
-            viewModel.articleResponse.observeForever(apiUsersObserver)
-            viewModel.getArticlesTest("123", 5, "5678")
-            verify(repository).getArticlesResponse("123", 5, "5678")
-
-            verify(apiUsersObserver).onChanged(
-                Resource.success(
-                    ArticleResponse(
-                        "", 2, articles, "Success"
-                    )
-                )
-            )
-            viewModel.articleResponse.removeObserver(apiUsersObserver)
-        }
-
-    }
-
-
-    @Test
-    fun givenResponseError_whenFetch_shouldReturnError() {
-
-        testCoroutineRule.runBlockingTest {
-            val errorMessage = "ErrorResponse Occurred!"
-            doThrow(RuntimeException(errorMessage))
-                .`when`(repository)
-                .getArticlesResponse("123", 5, "5678")
-
-            viewModel.articleResponse.observeForever(apiUsersObserver)
-            viewModel.getArticlesTest("123", 5, "5678")
-            verify(repository).getArticlesResponse("123", 5, "5678")
-
-            verify(apiUsersObserver).onChanged(
-                Resource.error(
-                    RuntimeException(errorMessage).toString(),
-                    null
-                )
-            )
-            viewModel.articleResponse.removeObserver(apiUsersObserver)
-        }
-    }
+//    @get:Rule
+//    val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
+//
+//    @get:Rule
+//    val testCoroutineRule = TestCoroutineRule()
+//
+//    @Mock
+//    private lateinit var apiUsersObserver: Observer<Resource<ArticleResponse>>
+//
+//    @Mock
+//    private lateinit var repository: HomeFragmentRepo
+//
+//    private lateinit var viewModel: HomeViewModel
+//
+//
+//    private val article1 = Article(
+//        "Abstract1", "", 0, emptyList(),
+//        "", "", "", "", "Title1", "", "", "", ""
+//    )
+//
+//    private val article2 = Article(
+//        "Abstract2", "", 0, emptyList(),
+//        "", "", "", "", "Title2", "", "", "", ""
+//    )
+//
+//    private val articles = listOf(article1, article2)
+//
+//    private val articleRes = ArticleResponse("", 2, articles, "Success")
+//
+//
+//    @Before
+//    fun setUp() {
+//        viewModel = HomeViewModel(repository)
+//
+//    }
+//
+//
+//    @Test
+//    fun `getArticles verify getArticlesResponse`() {
+//
+//        runBlocking {
+//            viewModel.getArticlesTest("123", 5, "5678")
+//            verify(repository).getArticlesResponse("123", 5, "5678")
+//
+//            viewModel.articleResponse.observeForever(apiUsersObserver)
+//            assertNotNull(viewModel.articleResponse.value)
+//
+//
+//        }
+//
+//    }
+//
+//    @Test
+//    fun givenResponseSuccess_whenFetch_shouldReturnSuccess() {
+//
+//
+//        testCoroutineRule.runBlockingTest {
+//            doReturn(articleRes)
+//                .`when`(repository)
+//                .getArticlesResponse("123", 5, "5678")
+//
+//            viewModel.articleResponse.observeForever(apiUsersObserver)
+//            viewModel.getArticlesTest("123", 5, "5678")
+//            verify(repository).getArticlesResponse("123", 5, "5678")
+//
+//            verify(apiUsersObserver).onChanged(
+//                Resource.success(
+//                    ArticleResponse(
+//                        "", 2, articles, "Success"
+//                    )
+//                )
+//            )
+//            viewModel.articleResponse.removeObserver(apiUsersObserver)
+//        }
+//
+//    }
+//
+//
+//    @Test
+//    fun givenResponseError_whenFetch_shouldReturnError() {
+//
+//        testCoroutineRule.runBlockingTest {
+//            val errorMessage = "ErrorResponse Occurred!"
+//            doThrow(RuntimeException(errorMessage))
+//                .`when`(repository)
+//                .getArticlesResponse("123", 5, "5678")
+//
+//            viewModel.articleResponse.observeForever(apiUsersObserver)
+//            viewModel.getArticlesTest("123", 5, "5678")
+//            verify(repository).getArticlesResponse("123", 5, "5678")
+//
+//            verify(apiUsersObserver).onChanged(
+//                Resource.error(
+//                    RuntimeException(errorMessage).toString(),
+//                    null
+//                )
+//            )
+//            viewModel.articleResponse.removeObserver(apiUsersObserver)
+//        }
+//    }
 
 
 }
