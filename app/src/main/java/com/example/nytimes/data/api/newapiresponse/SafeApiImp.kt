@@ -18,25 +18,7 @@ suspend fun <T> safeApiCall(
     return withContext(dispatcher) {
         try {
 
-//            val response = apiCall.invoke() as ArticleResponse
-//
-//            val dataDbSource = articleDao.getAllArticles()
-//            Timber.e("$dataDbSource.size")
-//
-//            if (dataDbSource.isEmpty()) {
-//                articleDao.insertArticles(response.results)
-//            } else {
-//                articleDao.deleteAllArticles()
-//                articleDao.insertArticles(response.results)
-//
-//            }
-//
-//
-//            val articleResponse = ArticleResponse("", 20, articleDao.getAllArticles(), "OK")
-
-
             ResultWrapper.Success(apiCall.invoke())
-
 
         } catch (throwable: Throwable) {
             Timber.e("${throwable.message}   ${throwable.localizedMessage}")
