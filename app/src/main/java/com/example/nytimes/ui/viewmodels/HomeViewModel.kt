@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
     }
 
 
-    private fun getArticlesFlow() {
+     fun getArticlesFlow() {
         viewModelScope.launch {
             repo.getArticlesResponseFlow("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
                 .onStart {
