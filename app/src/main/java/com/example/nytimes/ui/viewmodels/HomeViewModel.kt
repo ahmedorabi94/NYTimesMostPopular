@@ -8,6 +8,7 @@ import com.example.nytimes.data.api.Resource
 import com.example.nytimes.data.api.ResultWrapper
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.repo.HomeFragmentRepo
+import com.example.nytimes.util.AppConstants
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
@@ -30,7 +31,7 @@ class HomeViewModel @Inject constructor(private val repo: HomeFragmentRepo) : Vi
 
      fun getArticlesFlow() {
         viewModelScope.launch {
-            repo.getArticlesResponseFlow("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
+            repo.getArticlesResponseFlow("all-sections", 7, AppConstants.API_KEY)
                 .onStart {
                     Timber.e("Start")
                     _articleResponse.value = Resource.loading(data = null)
