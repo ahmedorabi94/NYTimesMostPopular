@@ -70,8 +70,6 @@ class HomeFragmentRepo @Inject constructor(
                 }
             }
 
-           // emit(apiResponse)
-
 
         }.flowOn(Dispatchers.IO)
     }
