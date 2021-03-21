@@ -88,13 +88,13 @@ class HomeFragment : Fragment(), Injectable {
 
                     }
                     Resource.Status.ERROR -> {
-                        binding.progressbar.visibility = View.GONE
+                     //   binding.progressbar.visibility = View.GONE
                         binding.recyclerViewMain.visibility = View.VISIBLE
                         Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
                     }
                     Resource.Status.LOADING -> {
                         binding.progressbar.visibility = View.VISIBLE
-                        binding.recyclerViewMain.visibility = View.GONE
+                      //  binding.recyclerViewMain.visibility = View.GONE
                     }
                 }
             }

@@ -45,11 +45,11 @@ class HomeFragmentRepo @Inject constructor(
 
         return flow {
 
-            val dataDbSource = articleDao.getAllArticles()
-            val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
-
-            emit(ResultWrapper.Success(articleResponse))
-
+//            val dataDbSource = articleDao.getAllArticles()
+//            val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
+//
+//            emit(ResultWrapper.Success(articleResponse))
+//
 
             val apiResponse = safeApiCall(articleDao, dispatcher) {
                 apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
@@ -60,15 +60,17 @@ class HomeFragmentRepo @Inject constructor(
                 is ResultWrapper.Success -> {
                     articleDao.deleteAllArticles()
                     articleDao.insertArticles(apiResponse.value.results)
+                    emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
+
                 }
                 else -> {
-                    //    emit(apiResponse)
+                    emit(apiResponse)
 
-                    //   emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
+                    emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
                 }
             }
 
-            emit(apiResponse)
+           // emit(apiResponse)
 
 
         }.flowOn(Dispatchers.IO)
