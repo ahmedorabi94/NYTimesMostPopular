@@ -1,7 +1,5 @@
-package com.example.nytimes.data.api.newapiresponse
+package com.example.nytimes.data.api
 
-import com.example.nytimes.data.api.ErrorResponse
-import com.example.nytimes.data.db.ArticleDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -10,7 +8,6 @@ import java.io.IOException
 
 
 suspend fun <T> safeApiCall(
-    articleDao: ArticleDao,
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
 ): ResultWrapper<T> {

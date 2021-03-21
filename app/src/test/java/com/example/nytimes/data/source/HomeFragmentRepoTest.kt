@@ -3,6 +3,7 @@ package com.example.nytimes.data.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.nytimes.TestCoroutineRule
 import com.example.nytimes.data.api.ApiService
+import com.example.nytimes.data.db.ArticleDao
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.model.Article
 import com.example.nytimes.data.repo.HomeFragmentRepo
@@ -33,17 +34,19 @@ class HomeFragmentRepoTest {
 
     @Mock
     lateinit var apiService: ApiService
+    @Mock
+    lateinit var articleDao: ArticleDao
 
     private lateinit var repository: HomeFragmentRepo
 
-    private val article1 = Article(
-        "Abstract1", "", 0, emptyList(),
-        "", "", "", "", "Title1", "", "", "", ""
+    private val article1 = Article(1,1,
+        "", "Abstract1", emptyList(),"","","Title1"
+
     )
 
     private val article2 = Article(
-        "Abstract2", "", 0, emptyList(),
-        "", "", "", "", "Title2", "", "", "", ""
+        12,11,
+        "", "Abstract2", emptyList(),"","","Title2"
     )
 
     private val articles = listOf(article1, article2)
@@ -52,7 +55,7 @@ class HomeFragmentRepoTest {
 
     @Before
     fun setup() {
-        repository = HomeFragmentRepo(apiService)
+        repository = HomeFragmentRepo(apiService,articleDao)
     }
 
     @Test

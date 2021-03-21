@@ -1,8 +1,8 @@
 package com.example.nytimes.data.repo
 
 import com.example.nytimes.data.api.ApiService
-import com.example.nytimes.data.api.newapiresponse.ResultWrapper
-import com.example.nytimes.data.api.newapiresponse.safeApiCall
+import com.example.nytimes.data.api.ResultWrapper
+import com.example.nytimes.data.api.safeApiCall
 import com.example.nytimes.data.db.ArticleDao
 import com.example.nytimes.data.model.ArticleResponse
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,22 +20,6 @@ class HomeFragmentRepo @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
 
-    suspend fun getArticlesResponse(section: String, period: Int, apiKey: String) =
-        apiService.getArticlesResponseAsync(section, period, apiKey)
-
-
-    suspend fun getArticlesResponseTwo(
-        section: String,
-        period: Int,
-        apiKey: String
-    ): ResultWrapper<ArticleResponse> {
-
-        return safeApiCall(articleDao, dispatcher) {
-            apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
-        }
-    }
-
-
     suspend fun getArticlesResponseFlow(
         section: String,
         period: Int,
@@ -45,13 +29,8 @@ class HomeFragmentRepo @Inject constructor(
 
         return flow {
 
-//            val dataDbSource = articleDao.getAllArticles()
-//            val articleResponse = ArticleResponse("", 20, dataDbSource, "OK")
-//
-//            emit(ResultWrapper.Success(articleResponse))
-//
 
-            val apiResponse = safeApiCall(articleDao, dispatcher) {
+            val apiResponse = safeApiCall( dispatcher) {
                 apiService.getArticlesResponseAsyncTwo(section, period, apiKey)
             }
 
@@ -60,13 +39,31 @@ class HomeFragmentRepo @Inject constructor(
                 is ResultWrapper.Success -> {
                     articleDao.deleteAllArticles()
                     articleDao.insertArticles(apiResponse.value.results)
-                    emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
+                    emit(
+                        ResultWrapper.Success(
+                            ArticleResponse(
+                                "",
+                                20,
+                                articleDao.getAllArticles(),
+                                "OK"
+                            )
+                        )
+                    )
 
                 }
                 else -> {
                     emit(apiResponse)
-
-                    emit(ResultWrapper.Success(ArticleResponse("", 20, articleDao.getAllArticles(), "OK")))
+                    
+                    emit(
+                        ResultWrapper.Success(
+                            ArticleResponse(
+                                "",
+                                20,
+                                articleDao.getAllArticles(),
+                                "OK"
+                            )
+                        )
+                    )
                 }
             }
 
