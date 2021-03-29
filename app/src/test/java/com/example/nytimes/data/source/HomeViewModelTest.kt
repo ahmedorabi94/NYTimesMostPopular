@@ -3,13 +3,17 @@ package com.example.nytimes.data.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.nytimes.TestCoroutineRule
+import com.example.nytimes.data.api.ErrorResponse
 import com.example.nytimes.data.api.Resource
+import com.example.nytimes.data.api.ResultWrapper
 import com.example.nytimes.data.model.Article
 import com.example.nytimes.data.model.ArticleResponse
 import com.example.nytimes.data.repo.HomeFragmentRepo
 import com.example.nytimes.ui.viewmodels.HomeViewModel
+import com.example.nytimes.util.AppConstants
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -67,6 +71,7 @@ class HomeViewModelTest {
     fun setUp() {
         viewModel = HomeViewModel(repository)
 
+
     }
 
 
@@ -74,11 +79,13 @@ class HomeViewModelTest {
     fun `getArticles verify getArticlesResponse`() {
 
         runBlocking {
+
             viewModel.getArticlesFlow()
-            verify(repository).getArticlesResponseFlow(
+
+            verify(repository, times(1)).getArticlesResponseFlow(
                 "all-sections",
                 7,
-                "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT"
+                AppConstants.API_KEY
             )
 
             viewModel.articleResponse.observeForever(apiUsersObserver)
@@ -93,28 +100,34 @@ class HomeViewModelTest {
     fun givenResponseSuccess_whenFetch_shouldReturnSuccess() {
 
 
-//        testCoroutineRule.runBlockingTest {
-//            doReturn(articleRes)
-//                .`when`(repository)
-//                .getArticlesResponseFlow("all-sections", 7, "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT")
-//
-//            viewModel.articleResponse.observeForever(apiUsersObserver)
-//            viewModel.getArticlesFlow()
-//            verify(repository).getArticlesResponseFlow(
-//                "all-sections",
-//                7,
-//                "DM0wSUOy0AbaD4OoYd80zXvFsy5xZKmT"
-//            )
-//
-//            verify(apiUsersObserver).onChanged(
-//                Resource.success(
-//                    ArticleResponse(
-//                        "", 2, articles, "Success"
-//                    )
-//                )
-//            )
-//            viewModel.articleResponse.removeObserver(apiUsersObserver)
-//        }
+        val flow = flow {
+            emit(
+                ResultWrapper.Success(articleRes)
+            )
+        }
+
+
+
+        testCoroutineRule.runBlockingTest {
+            doReturn(flow)
+                .`when`(repository)
+                .getArticlesResponseFlow("all-sections", 7, AppConstants.API_KEY)
+
+            viewModel.articleResponse.observeForever(apiUsersObserver)
+            viewModel.getArticlesFlow()
+            verify(repository).getArticlesResponseFlow(
+                "all-sections",
+                7,
+                AppConstants.API_KEY
+            )
+
+            verify(apiUsersObserver).onChanged(
+                Resource.success(
+                    ArticleResponse("", 2, articles, "Success")
+                )
+            )
+            viewModel.articleResponse.removeObserver(apiUsersObserver)
+        }
 
     }
 
@@ -122,24 +135,27 @@ class HomeViewModelTest {
     @Test
     fun givenResponseError_whenFetch_shouldReturnError() {
 
-//        testCoroutineRule.runBlockingTest {
-//            val errorMessage = "ErrorResponse Occurred!"
-//            doThrow(RuntimeException(errorMessage))
-//                .`when`(repository)
-//                .getArticlesResponseFlow("123", 5, "5678")
-//
-//            viewModel.articleResponse.observeForever(apiUsersObserver)
-//            viewModel.getArticlesFlow()
-//            verify(repository).getArticlesResponseFlow("123", 5, "5678")
-//
-//            verify(apiUsersObserver).onChanged(
-//                Resource.error(
-//                    RuntimeException(errorMessage).toString(),
-//                    null
-//                )
-//            )
-//            viewModel.articleResponse.removeObserver(apiUsersObserver)
-//        }
+
+        val flow = flow {
+            emit(
+                ResultWrapper.Error(404, ErrorResponse(message = "404 Not Found"))
+            )
+        }
+
+        testCoroutineRule.runBlockingTest {
+            doReturn(flow)
+                .`when`(repository)
+                .getArticlesResponseFlow("all-sections", 7, AppConstants.API_KEY)
+
+            viewModel.articleResponse.observeForever(apiUsersObserver)
+            viewModel.getArticlesFlow()
+            verify(repository).getArticlesResponseFlow("all-sections", 7, AppConstants.API_KEY)
+
+            verify(apiUsersObserver).onChanged(
+                Resource.error(data = null, message = "404 Not Found")
+            )
+            viewModel.articleResponse.removeObserver(apiUsersObserver)
+        }
     }
 
 
